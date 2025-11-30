@@ -12,7 +12,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp } from '@react-navigation/native';
-import { RootStackParamList, MainAppParamList } from '../navigation/RootNavigator';
+import {
+  RootStackParamList,
+  MainAppParamList,
+} from '../navigation/RootNavigator';
 import { Colors, Spacing, Typography } from '../styles/constants';
 import { ActivityCard } from '../components/ActivityCard';
 import { ActionButton } from '../components/ActionButton';
@@ -31,7 +34,9 @@ interface HomeScreenProps {
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   const { userName } = route.params;
-  const [activeTab, setActiveTab] = useState<'Home' | 'Reports' | 'Profile'>('Home');
+  const [activeTab, setActiveTab] = useState<'Home' | 'Reports' | 'Profile'>(
+    'Home',
+  );
 
   const handleTabPress = (tab: 'Home' | 'Reports' | 'Profile') => {
     setActiveTab(tab);
@@ -61,7 +66,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={Colors.background} />
-      
+
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -125,7 +130,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
             subtitle="Report a lost or found item"
             variant="primary"
             onPress={() => {
-              // Navigate to report creation screen when available
+              navigation.navigate('MakeLostReport' as never);
             }}
           />
         </View>
@@ -134,14 +139,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Recent Activity</Text>
-            <TouchableOpacity
-              onPress={() => handleTabPress('Reports')}
-            >
+            <TouchableOpacity onPress={() => handleTabPress('Reports')}>
               <Text style={styles.seeMoreText}>See more</Text>
             </TouchableOpacity>
           </View>
 
-          {recentReports.map((report) => (
+          {recentReports.map(report => (
             <ReportItem
               key={report.id}
               title={report.title}
@@ -149,7 +152,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
               time={report.time}
               status={report.status}
               onPress={() => {
-                // Navigate to report detail screen when available
+                (navigation as any).navigate('ReportInfo', { report });
               }}
             />
           ))}
@@ -157,10 +160,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
       </ScrollView>
 
       {/* Bottom Tab Bar */}
-      <BottomTabBar
-        activeTab={activeTab}
-        onTabPress={handleTabPress}
-      />
+      <BottomTabBar activeTab={activeTab} onTabPress={handleTabPress} />
     </SafeAreaView>
   );
 };
