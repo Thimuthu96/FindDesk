@@ -16,6 +16,7 @@ interface ActionButtonProps {
   onPress?: () => void;
   containerStyle?: ViewStyle;
   variant?: 'primary' | 'secondary';
+  tailIcon?: boolean;
 }
 
 // const ICON_MAP: { [key: string]: string } = {
@@ -31,6 +32,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   onPress,
   containerStyle,
   variant = 'primary',
+  tailIcon = true,
 }) => {
   const isPrimary = variant === 'primary';
   //   const icon = ICON_MAP[iconName] || '•';
@@ -67,11 +69,13 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
       {/* <Text style={[styles.arrow, isPrimary && styles.primaryArrow]}>
         {arrowIcon}
       </Text> */}
-      <MaterialIcons
-        name="arrow-forward"
-        size={24}
-        color={isPrimary ? Colors.background : Colors.primary}
-      />
+      {tailIcon && (
+        <MaterialIcons
+          name="arrow-forward"
+          size={24}
+          color={isPrimary ? Colors.background : Colors.primary}
+        />
+      )}
     </TouchableOpacity>
   );
 };

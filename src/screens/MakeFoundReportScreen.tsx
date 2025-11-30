@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Colors, Spacing, Typography, BorderRadius } from '../styles/constants';
 
@@ -195,11 +195,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <MaterialCommunityIcons
-              name="chevron-left"
-              size={24}
-              color={Colors.text}
-            />
+            <Feather name="chevron-left" size={24} color={Colors.text} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Make a found report</Text>
           <View style={styles.headerSpacer} />
@@ -207,8 +203,8 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
 
         {/* Info Banner */}
         <View style={styles.infoBanner}>
-          <MaterialCommunityIcons
-            name="information"
+          <Feather
+            name="info"
             size={20}
             color="#0066FF"
             style={styles.infoIcon}
@@ -220,8 +216,8 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
         {relatedReport && (
           <View style={styles.relatedReportCard}>
             <View style={styles.relatedReportHeader}>
-              <MaterialCommunityIcons
-                name="link-variant"
+              <Feather
+                name="link"
                 size={18}
                 color={Colors.primary}
                 style={styles.relatedIcon}
@@ -230,8 +226,8 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
             </View>
             <View style={styles.relatedReportContent}>
               {/* <View style={styles.relatedImageContainer}>
-                <MaterialCommunityIcons
-                  name="package-variant"
+                <Feather
+                  name="package"
                   size={40}
                   color={Colors.primary}
                 />
@@ -249,8 +245,8 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
                   {relatedReport.title}
                 </Text>
                 <View style={styles.relatedInfoRow}>
-                  <MaterialCommunityIcons
-                    name="map-marker-outline"
+                  <Feather
+                    name="map-pin"
                     size={14}
                     color={Colors.textSecondary}
                     style={styles.relatedSmallIcon}
@@ -260,8 +256,8 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
                   </Text>
                 </View>
                 <View style={styles.relatedInfoRow}>
-                  <MaterialCommunityIcons
-                    name="account-outline"
+                  <Feather
+                    name="user"
                     size={14}
                     color={Colors.textSecondary}
                     style={styles.relatedSmallIcon}
@@ -315,7 +311,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
             >
               {selectedCategory || 'Select a category'}
             </Text>
-            <MaterialCommunityIcons
+            <Feather
               name="chevron-down"
               size={20}
               color={Colors.textSecondary}
@@ -335,11 +331,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
               <View style={styles.modalHeader}>
                 <Text style={styles.modalTitle}>Select Category</Text>
                 <TouchableOpacity onPress={() => setShowCategoryPicker(false)}>
-                  <MaterialCommunityIcons
-                    name="close"
-                    size={24}
-                    color={Colors.text}
-                  />
+                  <Feather name="close" size={24} color={Colors.text} />
                 </TouchableOpacity>
               </View>
               <FlatList
@@ -407,11 +399,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
                     style={styles.removePhotoButton}
                     onPress={() => removeImage(index)}
                   >
-                    <MaterialCommunityIcons
-                      name="close-circle"
-                      size={24}
-                      color={Colors.primary}
-                    />
+                    <Feather name="x-circle" size={24} color={Colors.primary} />
                   </TouchableOpacity>
                 </View>
               ))}
@@ -420,8 +408,8 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
 
           {/* Upload Area */}
           <View style={styles.uploadArea}>
-            <MaterialCommunityIcons
-              name="image-plus"
+            <Feather
+              name="image"
               size={40}
               color={Colors.primary}
               style={styles.uploadIcon}
@@ -434,7 +422,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
             style={styles.actionButton}
             onPress={() => setShowPhotoOptions(true)}
           >
-            <MaterialCommunityIcons
+            <Feather
               name="camera"
               size={18}
               color={Colors.background}
@@ -457,7 +445,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
                   style={styles.photoOption}
                   onPress={handleTakePhoto}
                 >
-                  <MaterialCommunityIcons
+                  <Feather
                     name="camera"
                     size={24}
                     color={Colors.primary}
@@ -469,7 +457,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
                       Capture with your camera
                     </Text>
                   </View>
-                  <MaterialCommunityIcons
+                  <Feather
                     name="chevron-right"
                     size={20}
                     color={Colors.textSecondary}
@@ -480,7 +468,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
                   style={styles.photoOption}
                   onPress={handleSelectFromGallery}
                 >
-                  <MaterialCommunityIcons
+                  <Feather
                     name="image"
                     size={24}
                     color={Colors.primary}
@@ -492,7 +480,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
                       Select from your photos
                     </Text>
                   </View>
-                  <MaterialCommunityIcons
+                  <Feather
                     name="chevron-right"
                     size={20}
                     color={Colors.textSecondary}

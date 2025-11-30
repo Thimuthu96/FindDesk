@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import { RootStackParamList } from '../navigation/RootNavigator';
 import { Colors, Spacing, Typography, BorderRadius } from '../styles/constants';
 
@@ -113,11 +113,7 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <MaterialCommunityIcons
-              name="chevron-left"
-              size={24}
-              color={Colors.text}
-            />
+            <Feather name="chevron-left" size={24} color={Colors.text} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Item Info</Text>
           <View style={styles.headerSpacer} />
@@ -170,9 +166,9 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
         <View style={styles.detailsSection}>
           {/* Time */}
           <View style={styles.detailRow}>
-            <MaterialCommunityIcons
-              name="clock-outline"
-              size={24}
+            <Feather
+              name="clock"
+              size={20}
               color={Colors.primary}
               style={styles.detailIcon}
             />
@@ -184,9 +180,9 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
 
           {/* Location */}
           <View style={styles.detailRow}>
-            <MaterialCommunityIcons
-              name="map-marker-outline"
-              size={24}
+            <Feather
+              name="map-pin"
+              size={20}
               color={Colors.primary}
               style={styles.detailIcon}
             />
@@ -199,9 +195,9 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
           {/* Item Details if available */}
           {report.itemDetails && (
             <View style={styles.detailRow}>
-              <MaterialCommunityIcons
-                name="package-outline"
-                size={24}
+              <Feather
+                name="package"
+                size={20}
                 color={Colors.primary}
                 style={styles.detailIcon}
               />
@@ -246,7 +242,7 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
                   });
                 }}
               >
-                <MaterialCommunityIcons
+                <Feather
                   name="check-circle"
                   size={20}
                   color={Colors.background}
@@ -257,7 +253,7 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
               <TouchableOpacity
                 style={[styles.actionButton, styles.contactButton]}
               >
-                <MaterialCommunityIcons
+                <Feather
                   name="phone"
                   size={20}
                   color={Colors.primary}
@@ -272,8 +268,8 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
             <TouchableOpacity
               style={[styles.actionButton, styles.contactButton]}
             >
-              <MaterialCommunityIcons
-                name="hand-right"
+              <Feather
+                name="hand"
                 size={20}
                 color={Colors.primary}
                 style={styles.buttonIcon}
@@ -284,7 +280,7 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
 
           {isItemFound && (
             <View style={styles.successMessage}>
-              <MaterialCommunityIcons
+              <Feather
                 name="check-circle"
                 size={24}
                 color="#2E7D32"
@@ -299,11 +295,7 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
         <View style={styles.relatedItemsSection}>
           <View style={styles.sectionHeader}>
             <Text style={styles.relatedItemsTitle}>Related Items</Text>
-            <MaterialCommunityIcons
-              name="tag-multiple"
-              size={20}
-              color={Colors.primary}
-            />
+            <Feather name="tag" size={20} color={Colors.primary} />
           </View>
 
           <FlatList
@@ -320,19 +312,15 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
                 }}
               >
                 <View style={styles.relatedItemImage}>
-                  <MaterialCommunityIcons
-                    name="package-variant"
-                    size={32}
-                    color={Colors.primary}
-                  />
+                  <Feather name="package" size={32} color={Colors.primary} />
                 </View>
 
                 <View style={styles.relatedItemContent}>
                   <Text style={styles.relatedItemTitle}>{item.title}</Text>
 
                   <View style={styles.relatedItemInfo}>
-                    <MaterialCommunityIcons
-                      name="map-marker-outline"
+                    <Feather
+                      name="map-pin"
                       size={14}
                       color={Colors.textSecondary}
                       style={styles.relatedItemIcon}
@@ -374,7 +362,7 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
                   </View>
                 </View>
 
-                <MaterialCommunityIcons
+                <Feather
                   name="chevron-right"
                   size={20}
                   color={Colors.textSecondary}

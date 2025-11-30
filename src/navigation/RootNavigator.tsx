@@ -17,7 +17,7 @@ import MyActiveReportsScreen from '../screens/MyActiveReportsScreen';
 export type RootStackParamList = {
   Splash: undefined;
   Welcome: undefined;
-  Login: undefined;
+  Login: { userName?: string };
   SignUp: undefined;
   MainApp: { userName: string };
   ReportInfo: { report: any };

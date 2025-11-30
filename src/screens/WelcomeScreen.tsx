@@ -24,8 +24,8 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleGetStarted = () => {
     if (userName.trim()) {
-      // Navigate to Login screen
-      navigation.replace('Login');
+      // Navigate to Login screen with userName
+      navigation.replace('Login', { userName: userName.trim() });
     }
   };
 
@@ -72,39 +72,39 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
 
           <View style={styles.featureItem}>
             <View style={styles.featureIconContainer}>
-              {/* <Text style={styles.featureIcon}>+</Text> */}
-              <MaterialIcons
+              <Text style={styles.featureIcon}>+</Text>
+              {/* <MaterialIcons
                 name="add"
                 size={14}
                 color="#0066FF"
                 style={{ fontWeight: '600' }}
-              />
+              /> */}
             </View>
             <Text style={styles.featureText}>Report lost or found items</Text>
           </View>
 
           <View style={styles.featureItem}>
             <View style={styles.featureIconContainer}>
-              {/* <Text style={styles.featureIcon}>📷</Text> */}
-              <MaterialIcons
+              <Text style={styles.featureIcon}>+</Text>
+              {/* <MaterialIcons
                 name="camera-alt"
                 size={14}
                 color="#0066FF"
                 style={{ fontWeight: '600' }}
-              />
+              /> */}
             </View>
             <Text style={styles.featureText}>Capture photos and locations</Text>
           </View>
 
           <View style={styles.featureItem}>
             <View style={styles.featureIconContainer}>
-              {/* <Text style={styles.featureIcon}>🔧</Text> */}
-              <MaterialIcons
+              <Text style={styles.featureIcon}>+</Text>
+              {/* <MaterialIcons
                 name="build"
                 size={14}
                 color="#0066FF"
                 style={{ fontWeight: '600' }}
-              />
+              /> */}
             </View>
             <Text style={styles.featureText}>Help and support together</Text>
           </View>
@@ -120,12 +120,12 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
           disabled={!userName.trim()}
         >
           <Text style={styles.getStartedText}>Get Started</Text>
-          <MaterialIcons
+          {/* <MaterialIcons
             name="arrow-forward"
             size={18}
             color="#FFFFFF"
             style={styles.getStartedArrow}
-          />
+          /> */}
         </TouchableOpacity>
 
         {/* Footer Text */}

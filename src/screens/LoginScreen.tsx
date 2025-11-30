@@ -19,16 +19,17 @@ import { Colors, Spacing, Typography, BorderRadius } from '../styles/constants';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-const LoginScreen: React.FC<Props> = ({ navigation }) => {
+const LoginScreen: React.FC<Props> = ({ navigation, route }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { width } = useWindowDimensions();
+  const userName = route.params?.userName || 'User';
 
   const handleLogin = () => {
     if (email.trim() && password.trim()) {
-      // Navigate to MainApp without authentication
-      navigation.replace('MainApp', { userName: 'User' });
+      // Navigate to MainApp with the userName from Welcome screen
+      navigation.replace('MainApp', { userName });
     }
   };
 

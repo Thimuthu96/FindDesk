@@ -8,10 +8,12 @@ interface ActivityCardProps {
   number: string | number;
   label: string;
   containerStyle?: ViewStyle;
+  iconColor?: string;
 }
 
 export const ActivityCard: React.FC<ActivityCardProps> = ({
   iconName,
+  iconColor = Colors.primary,
   number,
   label,
   containerStyle,
@@ -21,7 +23,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
       <MaterialIcons
         name={iconName}
         size={28}
-        color={Colors.primary}
+        color={iconColor}
         style={styles.icon}
       />
 

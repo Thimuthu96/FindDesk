@@ -107,6 +107,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
             >
               <ActivityCard
                 iconName="info-outline"
+                iconColor="#EB3223"
                 number="1"
                 label="Active reports"
                 containerStyle={{ marginLeft: 0 }}
@@ -114,12 +115,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
             </TouchableOpacity>
             <ActivityCard
               iconName="check-circle-outline"
+              iconColor="#34A853"
               number="1"
               label="Resolved"
               containerStyle={{ marginHorizontal: Spacing.sm }}
             />
             <ActivityCard
-              iconName="file-document-outline"
+              iconName="list-alt"
+              iconColor="#1A73E8"
               number="5"
               label="Total reports"
               containerStyle={{ marginRight: 0 }}
@@ -137,6 +140,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
             onPress={() => {
               // Navigate to report creation screen when available
             }}
+            tailIcon={false}
           />
         </View>
 
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: Typography.fontSize.sm,
     color: Colors.textSecondary,
-    marginBottom: Spacing.sm,
+    marginBottom: Spacing.xs,
   },
   greeting: {
     fontSize: Typography.fontSize.xl,

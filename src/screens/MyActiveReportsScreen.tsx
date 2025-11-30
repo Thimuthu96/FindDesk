@@ -14,7 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import {
   RootStackParamList,
   MainAppParamList,
@@ -123,11 +123,7 @@ const MyActiveReportsScreen: React.FC<MyActiveReportsScreenProps> = ({
       {/* Header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialCommunityIcons
-            name="chevron-left"
-            size={24}
-            color={Colors.text}
-          />
+          <Feather name="chevron-left" size={24} color={Colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>My active reports</Text>
         <View style={{ width: 24 }} />
@@ -155,7 +151,7 @@ const MyActiveReportsScreen: React.FC<MyActiveReportsScreenProps> = ({
             {report.foundItem && (
               <View style={styles.foundMessageContainer}>
                 <View style={styles.foundMessageContent}>
-                  <MaterialCommunityIcons
+                  <Feather
                     name="check-circle"
                     size={24}
                     color="#2E7D32"
@@ -203,8 +199,8 @@ const MyActiveReportsScreen: React.FC<MyActiveReportsScreenProps> = ({
                   <Text style={styles.itemInfoTitle}>Item Information</Text>
 
                   <View style={styles.infoRow}>
-                    <MaterialCommunityIcons
-                      name="map-marker-outline"
+                    <Feather
+                      name="map-pin"
                       size={18}
                       color={Colors.primary}
                       style={styles.infoIcon}
@@ -218,8 +214,8 @@ const MyActiveReportsScreen: React.FC<MyActiveReportsScreenProps> = ({
                   </View>
 
                   <View style={styles.infoRow}>
-                    <MaterialCommunityIcons
-                      name="calendar-outline"
+                    <Feather
+                      name="calendar"
                       size={18}
                       color={Colors.primary}
                       style={styles.infoIcon}
@@ -255,11 +251,7 @@ const MyActiveReportsScreen: React.FC<MyActiveReportsScreenProps> = ({
         {/* Empty State */}
         {activeReports.length === 0 && (
           <View style={styles.emptyContainer}>
-            <MaterialCommunityIcons
-              name="inbox"
-              size={64}
-              color={Colors.textSecondary}
-            />
+            <Feather name="inbox" size={64} color={Colors.textSecondary} />
             <Text style={styles.emptyText}>No active reports yet</Text>
           </View>
         )}
@@ -281,11 +273,7 @@ const MyActiveReportsScreen: React.FC<MyActiveReportsScreenProps> = ({
             <View style={styles.sheetHeader}>
               <Text style={styles.sheetTitle}>Verify Ownership</Text>
               <TouchableOpacity onPress={() => setShowVerificationSheet(false)}>
-                <MaterialCommunityIcons
-                  name="close"
-                  size={24}
-                  color={Colors.text}
-                />
+                <Feather name="x" size={24} color={Colors.text} />
               </TouchableOpacity>
             </View>
 

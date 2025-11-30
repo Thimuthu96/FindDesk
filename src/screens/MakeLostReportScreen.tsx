@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import MapView, { Marker } from 'react-native-maps';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Geolocation from 'react-native-geolocation-service';
@@ -431,11 +431,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
             style={styles.backButton}
             onPress={() => navigation.goBack()}
           >
-            <MaterialCommunityIcons
-              name="chevron-left"
-              size={24}
-              color={Colors.text}
-            />
+            <Feather name="chevron-left" size={24} color={Colors.text} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Make a lost report</Text>
           <View style={styles.headerSpacer} />
@@ -443,8 +439,8 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
 
         {/* Info Banner */}
         <View style={styles.infoBanner}>
-          <MaterialCommunityIcons
-            name="information"
+          <Feather
+            name="info"
             size={20}
             color="#0066FF"
             style={styles.infoIcon}
@@ -467,7 +463,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
             >
               {selectedCategory || 'Select a category'}
             </Text>
-            <MaterialCommunityIcons
+            <Feather
               name="chevron-down"
               size={20}
               color={Colors.textSecondary}
@@ -487,11 +483,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
               <View style={styles.modalHeader}>
                 <Text style={styles.modalTitle}>Select Category</Text>
                 <TouchableOpacity onPress={() => setShowCategoryPicker(false)}>
-                  <MaterialCommunityIcons
-                    name="close"
-                    size={24}
-                    color={Colors.text}
-                  />
+                  <Feather name="close" size={24} color={Colors.text} />
                 </TouchableOpacity>
               </View>
               <FlatList
@@ -561,11 +553,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                     style={styles.removePhotoButton}
                     onPress={() => removeImage(index)}
                   >
-                    <MaterialCommunityIcons
-                      name="close-circle"
-                      size={24}
-                      color="#FF4444"
-                    />
+                    <Feather name="x-circle" size={24} color="#FF4444" />
                   </TouchableOpacity>
                 </View>
               ))}
@@ -574,8 +562,8 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
 
           {/* Upload Area */}
           <View style={styles.uploadArea}>
-            <MaterialCommunityIcons
-              name="image-plus"
+            <Feather
+              name="image"
               size={40}
               color={Colors.primary}
               style={styles.uploadIcon}
@@ -588,7 +576,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
             style={styles.actionButton}
             onPress={() => setShowPhotoOptions(true)}
           >
-            <MaterialCommunityIcons
+            <Feather
               name="camera"
               size={18}
               color={Colors.background}
@@ -611,7 +599,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                   style={styles.photoOption}
                   onPress={handleTakePhoto}
                 >
-                  <MaterialCommunityIcons
+                  <Feather
                     name="camera"
                     size={24}
                     color={Colors.primary}
@@ -623,7 +611,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                       Use your device camera
                     </Text>
                   </View>
-                  <MaterialCommunityIcons
+                  <Feather
                     name="chevron-right"
                     size={20}
                     color={Colors.textSecondary}
@@ -634,7 +622,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                   style={styles.photoOption}
                   onPress={handleSelectFromGallery}
                 >
-                  <MaterialCommunityIcons
+                  <Feather
                     name="image"
                     size={24}
                     color={Colors.primary}
@@ -646,7 +634,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                       Choose from your device
                     </Text>
                   </View>
-                  <MaterialCommunityIcons
+                  <Feather
                     name="chevron-right"
                     size={20}
                     color={Colors.textSecondary}
@@ -673,8 +661,8 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
           {/* Location Display */}
           {selectedLocation && (
             <View style={styles.locationCard}>
-              <MaterialCommunityIcons
-                name="map-marker"
+              <Feather
+                name="map-pin"
                 size={20}
                 color={Colors.primary}
                 style={styles.locationIcon}
@@ -689,11 +677,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                 </Text>
               </View>
               <TouchableOpacity onPress={() => setSelectedLocation(null)}>
-                <MaterialCommunityIcons
-                  name="close"
-                  size={20}
-                  color={Colors.textSecondary}
-                />
+                <Feather name="close" size={20} color={Colors.textSecondary} />
               </TouchableOpacity>
             </View>
           )}
@@ -708,8 +692,8 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
               onPress={handleAttachLocation}
               disabled={isLoadingLocation}
             >
-              <MaterialCommunityIcons
-                name={isLoadingLocation ? 'loading' : 'map-marker'}
+              <Feather
+                name={isLoadingLocation ? 'loader' : 'map-pin'}
                 size={18}
                 color={Colors.background}
                 style={styles.buttonIcon}
@@ -723,7 +707,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
               style={[styles.actionButton, { flex: 1 }]}
               onPress={handleOpenMap}
             >
-              <MaterialCommunityIcons
+              <Feather
                 name="map-search"
                 size={18}
                 color={Colors.background}
@@ -753,11 +737,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                   }}
                   style={styles.mapCloseButton}
                 >
-                  <MaterialCommunityIcons
-                    name="close"
-                    size={24}
-                    color={Colors.text}
-                  />
+                  <Feather name="close" size={24} color={Colors.text} />
                 </TouchableOpacity>
               </View>
 
@@ -825,8 +805,8 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                   onPress={handleAttachLocation}
                   disabled={isLoadingLocation}
                 >
-                  <MaterialCommunityIcons
-                    name="crosshairs-gps"
+                  <Feather
+                    name="target"
                     size={24}
                     color={Colors.primary}
                     style={styles.optionIcon}
@@ -837,7 +817,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                       Use your device GPS
                     </Text>
                   </View>
-                  <MaterialCommunityIcons
+                  <Feather
                     name="chevron-right"
                     size={20}
                     color={Colors.textSecondary}
@@ -848,7 +828,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                   style={styles.photoOption}
                   onPress={handleOpenMap}
                 >
-                  <MaterialCommunityIcons
+                  <Feather
                     name="map-search"
                     size={24}
                     color={Colors.primary}
@@ -860,7 +840,7 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
                       Pick location from map
                     </Text>
                   </View>
-                  <MaterialCommunityIcons
+                  <Feather
                     name="chevron-right"
                     size={20}
                     color={Colors.textSecondary}
