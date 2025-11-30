@@ -7,6 +7,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
+  FlatList,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -30,6 +31,45 @@ interface ReportData {
   itemDetails?: string;
 }
 
+interface RelatedItem {
+  id: string;
+  title: string;
+  location: string;
+  status: 'Lost' | 'Found';
+  postedBy: string;
+}
+
+const RELATED_ITEMS: RelatedItem[] = [
+  {
+    id: '1',
+    title: 'Black Leather Wallet',
+    location: 'Near Shopping Mall',
+    status: 'Lost',
+    postedBy: 'John',
+  },
+  {
+    id: '2',
+    title: 'Blue Travel Bag',
+    location: 'Bus Station',
+    status: 'Found',
+    postedBy: 'Sarah',
+  },
+  {
+    id: '3',
+    title: 'Silver Watch',
+    location: 'Airport Lounge',
+    status: 'Lost',
+    postedBy: 'Mike',
+  },
+  {
+    id: '4',
+    title: 'Car Keys with Keychain',
+    location: 'Parking Area',
+    status: 'Found',
+    postedBy: 'Emma',
+  },
+];
+
 const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
   navigation,
   route,
@@ -37,7 +77,18 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
   const { report } = route.params as { report: ReportData };
   const [isItemFound, setIsItemFound] = useState(false);
 
-  const getStatusColor = () => {
+  const getStatusBackgroundColor = () => {
+    switch (report.status) {
+      case 'Lost':
+        return '#FFE8E8';
+      case 'Found':
+        return '#E8F5E9';
+      default:
+        return Colors.primaryLight;
+    }
+  };
+
+  const getStatusTextColor = () => {
     switch (report.status) {
       case 'Lost':
         return '#FF4444';
@@ -103,10 +154,14 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
             <View
               style={[
                 styles.statusBadge,
-                { backgroundColor: getStatusColor() },
+                { backgroundColor: getStatusBackgroundColor() },
               ]}
             >
-              <Text style={styles.statusText}>{report.status}</Text>
+              <Text
+                style={[styles.statusText, { color: getStatusTextColor() }]}
+              >
+                {report.status}
+              </Text>
             </View>
           </View>
         </View>
@@ -185,7 +240,11 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
             <>
               <TouchableOpacity
                 style={[styles.actionButton, styles.foundButton]}
-                onPress={() => setIsItemFound(true)}
+                onPress={() => {
+                  (navigation as any).navigate('MakeFoundReport', {
+                    relatedReport: report,
+                  });
+                }}
               >
                 <MaterialCommunityIcons
                   name="check-circle"
@@ -234,6 +293,95 @@ const ReportInfoScreen: React.FC<ReportInfoScreenProps> = ({
               <Text style={styles.successText}>Thank you for reporting</Text>
             </View>
           )}
+        </View>
+
+        {/* Related Items Section */}
+        <View style={styles.relatedItemsSection}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.relatedItemsTitle}>Related Items</Text>
+            <MaterialCommunityIcons
+              name="tag-multiple"
+              size={20}
+              color={Colors.primary}
+            />
+          </View>
+
+          <FlatList
+            data={RELATED_ITEMS}
+            keyExtractor={item => item.id}
+            scrollEnabled={false}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.relatedItemCard}
+                onPress={() => {
+                  navigation.push('ReportInfo', {
+                    report: { ...item, time: 'Today' } as any,
+                  });
+                }}
+              >
+                <View style={styles.relatedItemImage}>
+                  <MaterialCommunityIcons
+                    name="package-variant"
+                    size={32}
+                    color={Colors.primary}
+                  />
+                </View>
+
+                <View style={styles.relatedItemContent}>
+                  <Text style={styles.relatedItemTitle}>{item.title}</Text>
+
+                  <View style={styles.relatedItemInfo}>
+                    <MaterialCommunityIcons
+                      name="map-marker-outline"
+                      size={14}
+                      color={Colors.textSecondary}
+                      style={styles.relatedItemIcon}
+                    />
+                    <Text style={styles.relatedItemLocation}>
+                      {item.location}
+                    </Text>
+                  </View>
+
+                  <View style={styles.relatedItemFooter}>
+                    <Text style={styles.relatedItemPostedBy}>
+                      by {item.postedBy}
+                    </Text>
+                    <View
+                      style={[
+                        styles.relatedItemStatus,
+                        {
+                          backgroundColor:
+                            item.status === 'Lost' ? '#FFE8E8' : '#E8F5E9',
+                        },
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.relatedItemStatusText,
+                          {
+                            color:
+                              item.status === 'Lost'
+                                ? '#FF4444'
+                                : item.status === 'Found'
+                                ? '#44AA44'
+                                : Colors.primary,
+                          },
+                        ]}
+                      >
+                        {item.status}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+
+                <MaterialCommunityIcons
+                  name="chevron-right"
+                  size={20}
+                  color={Colors.textSecondary}
+                />
+              </TouchableOpacity>
+            )}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -349,7 +497,6 @@ const styles = StyleSheet.create({
   statusText: {
     fontSize: Typography.fontSize.xs,
     fontWeight: Typography.fontWeight.bold,
-    color: Colors.background,
   },
   detailsSection: {
     marginHorizontal: Spacing.lg,
@@ -465,6 +612,79 @@ const styles = StyleSheet.create({
     fontSize: Typography.fontSize.md,
     fontWeight: Typography.fontWeight.bold,
     color: '#2E7D32',
+  },
+  relatedItemsSection: {
+    marginHorizontal: Spacing.lg,
+    marginVertical: Spacing.lg,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: Spacing.lg,
+  },
+  relatedItemsTitle: {
+    fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.text,
+  },
+  relatedItemCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.lightGrayBg,
+    borderRadius: BorderRadius.large,
+    padding: Spacing.md,
+    marginBottom: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+  },
+  relatedItemImage: {
+    width: 50,
+    height: 50,
+    borderRadius: BorderRadius.medium,
+    backgroundColor: Colors.primaryLight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: Spacing.md,
+  },
+  relatedItemContent: {
+    flex: 1,
+    marginRight: Spacing.md,
+  },
+  relatedItemTitle: {
+    fontSize: Typography.fontSize.md,
+    fontWeight: Typography.fontWeight.bold,
+    color: Colors.text,
+    marginBottom: Spacing.xs,
+  },
+  relatedItemInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
+  },
+  relatedItemIcon: {
+    marginRight: Spacing.xs,
+  },
+  relatedItemLocation: {
+    fontSize: Typography.fontSize.sm,
+    color: Colors.textSecondary,
+  },
+  relatedItemFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  relatedItemPostedBy: {
+    fontSize: Typography.fontSize.xs,
+    color: Colors.textSecondary,
+  },
+  relatedItemStatus: {
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    borderRadius: BorderRadius.medium,
+  },
+  relatedItemStatusText: {
+    fontSize: Typography.fontSize.xs,
+    fontWeight: Typography.fontWeight.bold,
   },
 });
 

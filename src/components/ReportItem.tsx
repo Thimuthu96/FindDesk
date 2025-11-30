@@ -28,14 +28,27 @@ export const ReportItem: React.FC<ReportItemProps> = ({
   onPress,
   containerStyle,
 }) => {
-  const getStatusColor = () => {
+  const getStatusBackgroundColor = () => {
+    switch (status) {
+      case 'Lost':
+        return '#FFE8E8';
+      case 'Found':
+        return '#E8F5E9';
+      case 'Resolved':
+        return '#E3F2FD';
+      default:
+        return Colors.primaryLight;
+    }
+  };
+
+  const getStatusTextColor = () => {
     switch (status) {
       case 'Lost':
         return '#FF4444';
       case 'Found':
         return '#44AA44';
       case 'Resolved':
-        return '#4488FF';
+        return '#0066FF';
       default:
         return Colors.primary;
     }
@@ -62,10 +75,14 @@ export const ReportItem: React.FC<ReportItemProps> = ({
             <View
               style={[
                 styles.statusBadge,
-                { backgroundColor: getStatusColor() },
+                { backgroundColor: getStatusBackgroundColor() },
               ]}
             >
-              <Text style={styles.statusText}>{status}</Text>
+              <Text
+                style={[styles.statusText, { color: getStatusTextColor() }]}
+              >
+                {status}
+              </Text>
             </View>
           )}
         </View>
@@ -124,7 +141,6 @@ const styles = StyleSheet.create({
   statusText: {
     fontSize: Typography.fontSize.xs,
     fontWeight: Typography.fontWeight.bold,
-    color: Colors.background,
   },
   infoRow: {
     flexDirection: 'row',
