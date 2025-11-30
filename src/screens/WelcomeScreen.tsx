@@ -13,6 +13,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackParamList } from '../navigation/RootNavigator';
+import { MaterialIcons } from '@react-native-vector-icons/material-icons';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
@@ -70,14 +71,16 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
 
           <View style={styles.featureItem}>
             <View style={styles.featureIconContainer}>
-              <Text style={styles.featureIcon}>+</Text>
+              {/* <Text style={styles.featureIcon}>+</Text> */}
+              <MaterialIcons name="add" size={14} color="#0066FF" style={{ fontWeight: '600' }} />
             </View>
             <Text style={styles.featureText}>Report lost or found items</Text>
           </View>
 
           <View style={styles.featureItem}>
             <View style={styles.featureIconContainer}>
-              <Text style={styles.featureIcon}>📷</Text>
+              {/* <Text style={styles.featureIcon}>📷</Text> */}
+              <MaterialIcons name="camera-alt" size={14} color="#0066FF" style={{ fontWeight: '600' }} />
             </View>
             <Text style={styles.featureText}>
               Capture photos and locations
@@ -86,7 +89,8 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
 
           <View style={styles.featureItem}>
             <View style={styles.featureIconContainer}>
-              <Text style={styles.featureIcon}>🔧</Text>
+              {/* <Text style={styles.featureIcon}>🔧</Text> */}
+              <MaterialIcons name="build" size={14} color="#0066FF" style={{ fontWeight: '600' }} />
             </View>
             <Text style={styles.featureText}>Help and support together</Text>
           </View>
@@ -102,7 +106,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
           disabled={!userName.trim()}
         >
           <Text style={styles.getStartedText}>Get Started</Text>
-          <Text style={styles.getStartedArrow}> →</Text>
+          <MaterialIcons name="arrow-forward" size={18} color="#FFFFFF" style={styles.getStartedArrow} />
         </TouchableOpacity>
 
         {/* Footer Text */}
@@ -166,7 +170,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     borderRadius: 12,
     padding: 20,
-    marginBottom: 24,
+    marginBottom: 75,
   },
   featuresTitle: {
     fontSize: 12,

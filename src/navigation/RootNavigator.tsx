@@ -1,9 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SplashScreen from '../screens/SplashScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import HomeScreen from '../screens/HomeScreen';
+import ReportsScreen from '../screens/ReportsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 
@@ -12,10 +15,44 @@ export type RootStackParamList = {
   Welcome: undefined;
   Login: undefined;
   SignUp: undefined;
+  MainApp: { userName: string };
+};
+
+export type MainAppParamList = {
   Home: { userName: string };
+  Reports: { userName: string };
+  Profile: { userName: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const BottomTab = createBottomTabNavigator<MainAppParamList>();
+
+const MainAppNavigator: React.FC<{ userName: string }> = ({ userName }) => {
+  return (
+    <BottomTab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: { display: 'none' }, // Hide default tab bar as we use custom BottomTabBar
+      }}
+    >
+      <BottomTab.Screen
+        name="Home"
+        component={HomeScreen}
+        initialParams={{ userName }}
+      />
+      <BottomTab.Screen
+        name="Reports"
+        component={ReportsScreen}
+        initialParams={{ userName }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        initialParams={{ userName }}
+      />
+    </BottomTab.Navigator>
+  );
+};
 
 const RootNavigator: React.FC = () => {
   return (
@@ -55,8 +92,10 @@ const RootNavigator: React.FC = () => {
           }}
         />
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="MainApp"
+          children={({ route }) => (
+            <MainAppNavigator userName={route.params?.userName || 'User'} />
+          )}
           options={{
             animationTypeForReplace: 'pop',
           }}

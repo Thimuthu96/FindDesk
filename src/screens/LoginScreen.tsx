@@ -27,8 +27,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleLogin = () => {
     if (email.trim() && password.trim()) {
-      // Navigate to Home without authentication
-      navigation.replace('Home', { userName: 'User' });
+      // Navigate to MainApp without authentication
+      navigation.replace('MainApp', { userName: 'User' });
     }
   };
 

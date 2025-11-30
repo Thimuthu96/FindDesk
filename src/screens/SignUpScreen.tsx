@@ -29,8 +29,8 @@ const SignUpScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleSignUp = () => {
     if (email.trim() && password.trim() && confirmPassword.trim() && password === confirmPassword) {
-      // Navigate to Home without authentication
-      navigation.replace('Home', { userName: 'User' });
+      // Navigate to MainApp without authentication
+      navigation.replace('MainApp', { userName: 'User' });
     }
   };
 
