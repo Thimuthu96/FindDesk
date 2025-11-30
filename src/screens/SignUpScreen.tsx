@@ -28,7 +28,12 @@ const SignUpScreen: React.FC<Props> = ({ navigation }) => {
   const { width } = useWindowDimensions();
 
   const handleSignUp = () => {
-    if (email.trim() && password.trim() && confirmPassword.trim() && password === confirmPassword) {
+    if (
+      email.trim() &&
+      password.trim() &&
+      confirmPassword.trim() &&
+      password === confirmPassword
+    ) {
       // Navigate to MainApp without authentication
       navigation.replace('MainApp', { userName: 'User' });
     }
@@ -61,15 +66,15 @@ const SignUpScreen: React.FC<Props> = ({ navigation }) => {
             style={[
               styles.logo,
               {
-                width: width * 0.35,
-                height: (width * 0.35 * 256) / 256,
+                width: width * 0.5,
+                height: (width * 0.45 * 256) / 256,
               },
             ]}
             resizeMode="contain"
           />
 
           {/* Title */}
-          <Text style={styles.title}>FindDesk</Text>
+          {/* <Text style={styles.title}>FindDesk</Text> */}
 
           {/* Email Input Section */}
           <Text style={styles.label}>Enter your email</Text>
@@ -96,12 +101,12 @@ const SignUpScreen: React.FC<Props> = ({ navigation }) => {
               secureTextEntry={!showPassword}
               editable={true}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setShowPassword(!showPassword)}
               style={styles.eyeIcon}
             >
               <Text style={styles.eyeText}>{showPassword ? '👁️' : '👁️'}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           {/* Confirm Password Input Section */}
@@ -116,12 +121,12 @@ const SignUpScreen: React.FC<Props> = ({ navigation }) => {
               secureTextEntry={!showConfirmPassword}
               editable={true}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setShowConfirmPassword(!showConfirmPassword)}
               style={styles.eyeIcon}
             >
               <Text style={styles.eyeText}>{showConfirmPassword ? '👁️' : '👁️'}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           {/* Sign Up Button */}
@@ -137,10 +142,7 @@ const SignUpScreen: React.FC<Props> = ({ navigation }) => {
           </TouchableOpacity>
 
           {/* Login Button */}
-          <TouchableOpacity
-            style={styles.loginButton}
-            onPress={handleLogin}
-          >
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
         </ScrollView>

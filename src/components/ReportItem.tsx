@@ -47,13 +47,12 @@ export const ReportItem: React.FC<ReportItemProps> = ({
       onPress={onPress}
       activeOpacity={0.7}
     >
-      {image && (
-        <Image
-          source={{ uri: image }}
-          style={styles.image}
-          defaultSource={require('../../assets/images/logo/splash_logo.png')}
-        />
-      )}
+      <Image
+        source={require('../../assets/images/logo/wallet.png')}
+        style={[styles.image, { width: 100, height: 100 }]}
+        resizeMode="contain"
+      />
+
       <View style={styles.contentContainer}>
         <View style={styles.titleRow}>
           <Text style={styles.title} numberOfLines={1}>

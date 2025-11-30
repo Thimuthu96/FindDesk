@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ViewStyle,
-} from 'react-native';
-import { MaterialIcons } from '@react-native-vector-icons/material-icons';
+import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Colors, Spacing, Typography, BorderRadius } from '../styles/constants';
 
 interface ActivityCardProps {
@@ -15,24 +10,21 @@ interface ActivityCardProps {
   containerStyle?: ViewStyle;
 }
 
-// const ICON_MAP: { [key: string]: string } = {
-//   'error-outline': '⚠️',
-//   'check-circle': '✅',
-//   'description': '📋',
-// };
-
 export const ActivityCard: React.FC<ActivityCardProps> = ({
   iconName,
   number,
   label,
   containerStyle,
 }) => {
-  
-
   return (
     <View style={[styles.card, containerStyle]}>
-          {/* <Text style={styles.icon}>{icon}</Text> */}
-        <MaterialIcons name={iconName as any} size={28} color={Colors.primary} style={styles.icon} />
+      <MaterialIcons
+        name={iconName}
+        size={28}
+        color={Colors.primary}
+        style={styles.icon}
+      />
+
       <Text style={styles.number}>{number}</Text>
       <Text style={styles.label}>{label}</Text>
     </View>
@@ -49,7 +41,6 @@ const styles = StyleSheet.create({
     marginHorizontal: Spacing.sm,
   },
   icon: {
-    fontSize: 28,
     marginBottom: Spacing.md,
   },
   number: {

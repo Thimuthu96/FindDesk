@@ -7,7 +7,9 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { MaterialIcons } from '@react-native-vector-icons/material-icons';
+// import { MaterialIcons } from '@react-native-vector-icons/material-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import { Colors, Spacing, Typography } from '../styles/constants';
 
 interface BottomTabBarProps {
@@ -25,7 +27,6 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
 
   return (
     <View style={[styles.container, containerStyle]}>
-      
       {/* HOME TAB */}
       <TouchableOpacity
         style={styles.tabButton}
@@ -36,12 +37,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
           size={isActive('Home') ? 30 : 26}
           color={isActive('Home') ? Colors.primary : Colors.textTertiary}
         />
-        <Text
-          style={[
-            styles.tabLabel,
-            isActive('Home') && styles.activeLabel,
-          ]}
-        >
+        <Text style={[styles.tabLabel, isActive('Home') && styles.activeLabel]}>
           Home
         </Text>
       </TouchableOpacity>
@@ -57,10 +53,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
           color={isActive('Reports') ? Colors.primary : Colors.textTertiary}
         />
         <Text
-          style={[
-            styles.tabLabel,
-            isActive('Reports') && styles.activeLabel,
-          ]}
+          style={[styles.tabLabel, isActive('Reports') && styles.activeLabel]}
         >
           Reports
         </Text>
@@ -77,15 +70,11 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
           color={isActive('Profile') ? Colors.primary : Colors.textTertiary}
         />
         <Text
-          style={[
-            styles.tabLabel,
-            isActive('Profile') && styles.activeLabel,
-          ]}
+          style={[styles.tabLabel, isActive('Profile') && styles.activeLabel]}
         >
           Profile
         </Text>
       </TouchableOpacity>
-
     </View>
   );
 };

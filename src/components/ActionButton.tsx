@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import { Colors, Spacing, Typography, BorderRadius } from '../styles/constants';
-import { MaterialIcons } from '@react-native-vector-icons/material-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface ActionButtonProps {
   iconName: string;
@@ -33,8 +33,8 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   variant = 'primary',
 }) => {
   const isPrimary = variant === 'primary';
-//   const icon = ICON_MAP[iconName] || '•';
-//   const arrowIcon = ICON_MAP['arrow-forward'] || '›';
+  //   const icon = ICON_MAP[iconName] || '•';
+  //   const arrowIcon = ICON_MAP['arrow-forward'] || '›';
 
   return (
     <TouchableOpacity
@@ -50,7 +50,11 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
         {/* <Text style={[styles.icon, isPrimary && styles.primaryIcon]}>
           {iconName}
         </Text> */}
-        <MaterialIcons name={iconName as any} size={28} color={isPrimary ? Colors.background : Colors.primary} />
+        <MaterialIcons
+          name={iconName as any}
+          size={28}
+          color={isPrimary ? Colors.background : Colors.primary}
+        />
       </View>
       <View style={styles.textContainer}>
         <Text style={[styles.title, isPrimary && styles.primaryText]}>
@@ -63,7 +67,11 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
       {/* <Text style={[styles.arrow, isPrimary && styles.primaryArrow]}>
         {arrowIcon}
       </Text> */}
-        <MaterialIcons name="arrow-forward" size={24} color={isPrimary ? Colors.background : Colors.primary} />
+      <MaterialIcons
+        name="arrow-forward"
+        size={24}
+        color={isPrimary ? Colors.background : Colors.primary}
+      />
     </TouchableOpacity>
   );
 };

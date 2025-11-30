@@ -55,15 +55,15 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             style={[
               styles.logo,
               {
-                width: width * 0.35,
-                height: (width * 0.35 * 256) / 256,
+                width: width * 0.5,
+                height: (width * 0.45 * 256) / 256,
               },
             ]}
             resizeMode="contain"
           />
 
           {/* Title */}
-          <Text style={styles.title}>FindDesk</Text>
+          {/* <Text style={styles.title}>FindDesk</Text> */}
 
           {/* Email Input Section */}
           <Text style={styles.label}>Enter your email</Text>
@@ -90,12 +90,12 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
               secureTextEntry={!showPassword}
               editable={true}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setShowPassword(!showPassword)}
               style={styles.eyeIcon}
             >
               <Text style={styles.eyeText}>{showPassword ? '👁️' : '👁️'}</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
 
           {/* Login Button */}
@@ -111,10 +111,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
           </TouchableOpacity>
 
           {/* Sign Up Button */}
-          <TouchableOpacity
-            style={styles.signUpButton}
-            onPress={handleSignUp}
-          >
+          <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
             <Text style={styles.signUpButtonText}>Sign up</Text>
           </TouchableOpacity>
         </ScrollView>
