@@ -53,6 +53,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
       location: 'No.123/A, Area 51, Science building',
       time: 'Just Now',
       status: 'Lost' as const,
+      description:
+        'Lost a black wallet with cash and cards. Last seen near Area 51. Kindly inform if found, urgent need.',
+      postedBy: 'Thimuthu',
+      userImage: 'https://via.placeholder.com/150',
+      itemDetails: 'Black leather wallet with cash and ID cards',
+      coordinates: '6.9271° N, 80.7789° E',
     },
     {
       id: '2',
@@ -60,6 +66,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
       location: 'No.123/A, Area 51, Science building',
       time: '1 hour ago',
       status: 'Lost' as const,
+      description:
+        'Lost a brown wallet with important documents and phone case near the science building.',
+      postedBy: 'John',
+      userImage: 'https://via.placeholder.com/150',
+      itemDetails: 'Brown leather wallet with phone case',
+      coordinates: '6.9271° N, 80.7789° E',
     },
   ];
 
@@ -88,12 +100,18 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Your Activity</Text>
           <View style={styles.activityContainer}>
-            <ActivityCard
-              iconName="info-outline"
-              number="1"
-              label="Active reports"
-              containerStyle={{ marginLeft: 0 }}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                (navigation as any).navigate('MyActiveReports', { userName });
+              }}
+            >
+              <ActivityCard
+                iconName="info-outline"
+                number="1"
+                label="Active reports"
+                containerStyle={{ marginLeft: 0 }}
+              />
+            </TouchableOpacity>
             <ActivityCard
               iconName="check-circle-outline"
               number="1"
@@ -130,7 +148,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ route, navigation }) => {
             subtitle="Report a lost or found item"
             variant="primary"
             onPress={() => {
-              navigation.navigate('MakeLostReport' as never);
+              (navigation as any).navigate('MakeLostReport');
             }}
           />
         </View>

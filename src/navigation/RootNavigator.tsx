@@ -12,6 +12,7 @@ import SignUpScreen from '../screens/SignUpScreen';
 import ReportInfoScreen from '../screens/ReportInfoScreen';
 import MakeLostReportScreen from '../screens/MakeLostReportScreen';
 import MakeFoundReportScreen from '../screens/MakeFoundReportScreen';
+import MyActiveReportsScreen from '../screens/MyActiveReportsScreen';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -22,6 +23,7 @@ export type RootStackParamList = {
   ReportInfo: { report: any };
   MakeLostReport: undefined;
   MakeFoundReport: { relatedReport?: any };
+  MyActiveReports: { userName: string };
 };
 
 export type MainAppParamList = {
@@ -123,6 +125,13 @@ const RootNavigator: React.FC = () => {
         <Stack.Screen
           name="MakeFoundReport"
           component={MakeFoundReportScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="MyActiveReports"
+          component={MyActiveReportsScreen}
           options={{
             headerShown: false,
           }}
