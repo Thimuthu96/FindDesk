@@ -11,7 +11,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList, MainAppParamList } from '../navigation/RootNavigator';
+import {
+  RootStackParamList,
+  MainAppParamList,
+} from '../navigation/RootNavigator';
 import { Colors, Spacing, Typography, BorderRadius } from '../styles/constants';
 import { ReportItem } from '../components/ReportItem';
 import { BottomTabBar } from '../components/BottomTabBar';
@@ -28,7 +31,9 @@ interface ReportsScreenProps {
 
 const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
   const { userName } = route.params;
-  const [activeTab, setActiveTab] = useState<'Home' | 'Reports' | 'Profile'>('Reports');
+  const [activeTab, setActiveTab] = useState<'Home' | 'Reports' | 'Profile'>(
+    'Reports',
+  );
 
   const handleTabPress = (tab: 'Home' | 'Reports' | 'Profile') => {
     setActiveTab(tab);
@@ -45,6 +50,10 @@ const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
       location: 'No.123/A, Area 51, Science building',
       time: 'Just Now',
       status: 'Lost' as const,
+      description:
+        'Lost a black wallet with cash and cards. Last seen near Area 51. Kindly inform if found, urgent need. Missing leather wallet containing ID and money. Last spotted around Area 51. Please help recover.',
+      postedBy: 'Thimuthu',
+      itemDetails: 'Black leather wallet with cash and ID cards',
     },
     {
       id: '2',
@@ -52,6 +61,10 @@ const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
       location: 'No.123/A, Area 51, Science building',
       time: '1 hour ago',
       status: 'Lost' as const,
+      description:
+        'Lost wallet containing important documents and cash near the campus entrance.',
+      postedBy: 'John',
+      itemDetails: 'Brown leather wallet with credit cards',
     },
     {
       id: '3',
@@ -59,6 +72,10 @@ const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
       location: 'No.123/A, Area 51, Science building',
       time: '2 hours ago',
       status: 'Lost' as const,
+      description:
+        'Black wallet with personal documents missing since yesterday.',
+      postedBy: 'Sarah',
+      itemDetails: 'Black leather wallet with driving license',
     },
     {
       id: '4',
@@ -66,6 +83,9 @@ const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
       location: 'No.123/A, Area 51, Science building',
       time: '3 hours ago',
       status: 'Lost' as const,
+      description: 'Lost wallet near the canteen area of the building.',
+      postedBy: 'Mike',
+      itemDetails: 'Navy blue wallet with cash',
     },
     {
       id: '5',
@@ -73,13 +93,16 @@ const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
       location: 'No.123/A, Area 51, Science building',
       time: '3 hours ago',
       status: 'Lost' as const,
+      description: 'Lost wallet near the canteen area of the building.',
+      postedBy: 'Emma',
+      itemDetails: 'Red wallet with personal belongings',
     },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={Colors.background} />
-      
+
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>All Reports</Text>
@@ -100,7 +123,7 @@ const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
 
         {/* Reports List */}
         <View style={styles.reportsContainer}>
-          {allReports.map((report) => (
+          {allReports.map(report => (
             <ReportItem
               key={report.id}
               title={report.title}
@@ -108,7 +131,7 @@ const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
               time={report.time}
               status={report.status}
               onPress={() => {
-                // Navigate to report detail screen when available
+                (navigation as any).push('ReportInfo', { report });
               }}
             />
           ))}
@@ -116,10 +139,7 @@ const ReportsScreen: React.FC<ReportsScreenProps> = ({ route, navigation }) => {
       </ScrollView>
 
       {/* Bottom Tab Bar */}
-      <BottomTabBar
-        activeTab={activeTab}
-        onTabPress={handleTabPress}
-      />
+      <BottomTabBar activeTab={activeTab} onTabPress={handleTabPress} />
     </SafeAreaView>
   );
 };

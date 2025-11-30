@@ -9,6 +9,7 @@ import ReportsScreen from '../screens/ReportsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
+import ReportInfoScreen from '../screens/ReportInfoScreen';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -16,6 +17,7 @@ export type RootStackParamList = {
   Login: undefined;
   SignUp: undefined;
   MainApp: { userName: string };
+  ReportInfo: { report: any };
 };
 
 export type MainAppParamList = {
@@ -98,6 +100,13 @@ const RootNavigator: React.FC = () => {
           )}
           options={{
             animationTypeForReplace: 'pop',
+          }}
+        />
+        <Stack.Screen
+          name="ReportInfo"
+          component={ReportInfoScreen}
+          options={{
+            headerShown: false,
           }}
         />
       </Stack.Navigator>
