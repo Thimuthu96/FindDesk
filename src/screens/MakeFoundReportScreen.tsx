@@ -18,12 +18,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Feather from 'react-native-vector-icons/Feather';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import Geolocation from '@react-native-community/geolocation';
 import { Colors, Spacing, Typography, BorderRadius } from '../styles/constants';
 
 type MakeFoundReportScreenProps = NativeStackScreenProps<
   any,
   'MakeFoundReport'
 >;
+
+interface LocationData {
+  latitude: number;
+  longitude: number;
+  address: string;
+}
 
 const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
   navigation,
@@ -35,6 +42,7 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [showCategoryPicker, setShowCategoryPicker] = useState(false);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
 
   const categories = [
     'Wallet',
@@ -162,23 +170,87 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
       return;
     }
 
-    Alert.alert(
-      'Success',
-      'Found item report submitted successfully!\n\nCategory: ' +
-        selectedCategory +
-        '\nDescription: ' +
-        description +
-        '\nPhotos: ' +
-        selectedImages.length,
-      [
-        {
-          text: 'OK',
-          onPress: () => {
-            navigation.goBack();
+    // Get current location and submit report
+    setIsLoadingLocation(true);
+    getCurrentLocation()
+      .then(location => {
+        setIsLoadingLocation(false);
+
+        // Prepare report data with current location
+        const reportData = {
+          id: Date.now().toString(),
+          category: selectedCategory,
+          description: description,
+          images: selectedImages,
+          location: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            address: location.address || 'Current Location',
           },
+          relatedToReport: relatedReport?.id || null,
+          timestamp: new Date().toISOString(),
+          foundBy: 'User',
+        };
+
+        // Log the report data
+        console.log('📝 Found Report submitted:', reportData);
+
+        Alert.alert(
+          'Success',
+          'Found item report submitted successfully!\n\n' +
+            'Category: ' +
+            selectedCategory +
+            '\nPhotos: ' +
+            selectedImages.length +
+            '\nLocation: ' +
+            (location.address || `${location.latitude}, ${location.longitude}`),
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                // Reset form
+                setSelectedCategory(null);
+                setDescription('');
+                setSelectedImages([]);
+                navigation.goBack();
+              },
+            },
+          ],
+        );
+      })
+      .catch(error => {
+        setIsLoadingLocation(false);
+        console.error('❌ Location Error:', error);
+        Alert.alert(
+          'Location Error',
+          'Could not get current location. Please try again.',
+        );
+      });
+  };
+
+  const getCurrentLocation = (): Promise<LocationData> => {
+    return new Promise((resolve, reject) => {
+      Geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          console.log('📍 Current Location:', latitude, longitude);
+          resolve({
+            latitude,
+            longitude,
+            address: `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`,
+          });
         },
-      ],
-    );
+        error => {
+          console.error('Location error:', error);
+          reject(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0,
+        },
+      );
+    });
   };
 
   return (
@@ -500,8 +572,19 @@ const MakeFoundReportScreen: React.FC<MakeFoundReportScreenProps> = ({
 
         {/* Submit Button */}
         <View style={styles.section}>
-          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-            <Text style={styles.submitButtonText}>Submit found report</Text>
+          <TouchableOpacity
+            style={[
+              styles.submitButton,
+              isLoadingLocation && styles.submitButtonDisabled,
+            ]}
+            onPress={handleSubmit}
+            disabled={isLoadingLocation}
+          >
+            <Text style={styles.submitButtonText}>
+              {isLoadingLocation
+                ? 'Getting location...'
+                : 'Submit found report'}
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -761,6 +844,10 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.large,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  submitButtonDisabled: {
+    backgroundColor: Colors.textTertiary,
+    opacity: 0.6,
   },
   submitButtonText: {
     fontSize: Typography.fontSize.md,
