@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />   -->
 
     <application
       android:name=".MainApplication"
@@ -15,12 +16,16 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:usesCleartextTraffic="${usesCleartextTraffic}"
-      android:supportsRtl="true">
+      android:supportsRtl="true"
+      android:requestLegacyExternalStorage="true">
       
       <!-- Google Maps API Key -->
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDZhNfHUFt3fxlhGqH1UG8vG7hXPCaZ-3E" />
+        android:value="${MAPS_API_KEY}" />
+      
+      <!-- Apache HTTP Legacy Library -->
+      <uses-library android:name="org.apache.http.legacy" android:required="false" />
       
       <activity
         android:name=".MainActivity"

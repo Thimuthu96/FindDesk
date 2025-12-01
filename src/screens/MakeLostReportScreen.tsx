@@ -19,7 +19,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Feather from 'react-native-vector-icons/Feather';
 import MapView, { Marker } from 'react-native-maps';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import Geolocation from 'react-native-geolocation-service';
+import Geolocation from '@react-native-community/geolocation';
 import { RootStackParamList } from '../navigation/RootNavigator';
 import { Colors, Spacing, Typography, BorderRadius } from '../styles/constants';
 
@@ -244,8 +244,6 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
           enableHighAccuracy: true,
           timeout: 20000,
           maximumAge: 1000,
-          forceRequestLocation: true,
-          showLocationDialog: true,
         },
       );
 
@@ -391,30 +389,89 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
       Alert.alert('Error', 'Please upload at least one photo');
       return;
     }
-    // if (!selectedLocation) {
-    //   Alert.alert('Error', 'Please attach a location');
-    //   return;
-    // }
 
-    Alert.alert(
-      'Success',
-      'Report submitted successfully!\n\nCategory: ' +
-        selectedCategory +
-        '\nDescription: ' +
-        description +
-        '\nPhotos: ' +
-        selectedImages.length +
-        '\nLocation: ' +
-        // selectedLocation.address,
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              navigation.goBack();
-            },
+    // Get current location and submit report
+    setIsLoadingLocation(true);
+    getCurrentLocation()
+      .then(location => {
+        setIsLoadingLocation(false);
+
+        // Prepare report data with current location
+        const reportData = {
+          id: Date.now().toString(),
+          category: selectedCategory,
+          description: description,
+          images: selectedImages,
+          location: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            address: location.address || 'Current Location',
           },
-        ],
-    );
+          timestamp: new Date().toISOString(),
+          postedBy: 'User',
+        };
+
+        // Log the report data
+        console.log('📝 Report submitted:', reportData);
+
+        Alert.alert(
+          'Success',
+          'Report submitted successfully!\n\n' +
+            'Category: ' +
+            selectedCategory +
+            '\nPhotos: ' +
+            selectedImages.length +
+            '\nLocation: ' +
+            (location.address || `${location.latitude}, ${location.longitude}`),
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                // Reset form
+                setSelectedCategory(null);
+                setDescription('');
+                setSelectedImages([]);
+                setSelectedLocation(null);
+                navigation.goBack();
+              },
+            },
+          ],
+        );
+      })
+      .catch(error => {
+        setIsLoadingLocation(false);
+        console.error('❌ Location Error:', error);
+        Alert.alert(
+          'Location Error',
+          'Could not get current location. Please try again.',
+        );
+      });
+  };
+
+  const getCurrentLocation = (): Promise<LocationData> => {
+    return new Promise((resolve, reject) => {
+      Geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          console.log('📍 Current Location:', latitude, longitude);
+          resolve({
+            latitude,
+            longitude,
+            address: `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`,
+          });
+        },
+        error => {
+          console.error('Location error:', error);
+          // Return a default location if geolocation fails
+          reject(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0,
+        },
+      );
+    });
   };
 
   return (
@@ -860,8 +917,17 @@ const MakeLostReportScreen: React.FC<MakeLostReportScreenProps> = ({
 
         {/* Submit Button */}
         <View style={styles.section}>
-          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-            <Text style={styles.submitButtonText}>Submit report</Text>
+          <TouchableOpacity
+            style={[
+              styles.submitButton,
+              isLoadingLocation && styles.submitButtonDisabled,
+            ]}
+            onPress={handleSubmit}
+            disabled={isLoadingLocation}
+          >
+            <Text style={styles.submitButtonText}>
+              {isLoadingLocation ? 'Getting location...' : 'Submit report'}
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -1193,6 +1259,10 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.large,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  submitButtonDisabled: {
+    backgroundColor: Colors.textTertiary,
+    opacity: 0.6,
   },
   submitButtonText: {
     fontSize: Typography.fontSize.md,
